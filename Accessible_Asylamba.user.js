@@ -5,7 +5,7 @@
 // @include     http://game.asylamba.com/*
 // @match       http://game.asylamba.com/*
 // @grant       GM_xmlhttpRequest
-// @updateURL   https://github.com/Genroa/accessibleasylamba/
+// @updateURL   https://github.com/Genroa/Accessible-Asylamba/raw/master/Accessible_Asylamba.user.js
 // @version     1.0.0
 // @grant       Genroa
 // @author      Genroa
