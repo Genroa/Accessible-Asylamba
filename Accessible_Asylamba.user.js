@@ -37,7 +37,7 @@ function createShortcuts()
 }
 
 
-function modifySidebar()
+function modifySideMenu()
 {
 	$.each($('#subnav .overflow a.item'), function(){
 		$(this).addClass('aa-side-menu');
@@ -96,7 +96,7 @@ function modifyMenu()
 
 $(function(){
 	modifyMenu();
-	modifySidebar();
+	modifySideMenu();
 
 	createShortcuts();
 });
