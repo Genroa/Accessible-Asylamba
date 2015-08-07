@@ -6,7 +6,7 @@
 // @match       http://game.asylamba.com/*
 // @grant       GM_xmlhttpRequest
 // @updateURL   https://github.com/Genroa/Accessible-Asylamba/raw/master/Accessible_Asylamba.user.js
-// @version     1.1.2
+// @version     1.1.3
 // @grant       Genroa
 // @author      Genroa
 // @require		http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js
@@ -24,11 +24,37 @@ function addCss(newCss)
 function createShortcuts()
 {
 	$(document).keyup(function(e) {
+	    //alert(e.keyCode+" ctrl="+e.ctrlKey+" alt="+e.altKey);
 	    if(e.keyCode==77 && e.ctrlKey) //m
 	    {
 	    	$('.aa-game-menu:first-child').focus();
 	    }
+	    else if(e.keyCode==65 && e.ctrlKey && e.altKey) //CTRL+ALT+a
+	    {
+	    	$('.aa-side-menu:first-child').focus();
+	    }
 	});
+}
+
+
+function modifySidebar()
+{
+	$.each($('#subnav .overflow a.item'), function(){
+		$(this).addClass('aa-side-menu');
+		$(this).find('.picto').remove();
+		$(this).html($(this).find('span').find('span').html());
+		$(this).find('span').remove();
+
+		$(this).on("click", function(){
+			$(this).find('img').click();
+		})
+	});
+
+	$('.aa-side-menu:last-child').on("focusout", function(){
+		$('.aa-side-menu').first().focus();
+	});
+
+	addCss('#subnav .item.aa-side-menu:focus{ background: yellow;}');
 }
 
 function modifyMenu()
@@ -58,21 +84,19 @@ function modifyMenu()
 		$('.aa-game-menu').first().focus();
 	});
 
-	
-
-
 	// $('div.box:nth-child(4) > a:nth-child(1)').html("Bugtracker");
 	// $('div.box:nth-child(4) > a:nth-child(2)').html("Paramètres");
 	// $('div.box:nth-child(4) > a:nth-child(3)').html("Menu principal");
 
 	//Debug display
-	//addCss('#nav .box a.square:focus{ background: red;}');
+	addCss('#nav .box a.square.aa-game-menu:focus{ background: red;}');
 }
 
 
 
 $(function(){
 	modifyMenu();
+	modifySidebar();
 
 	createShortcuts();
 });
