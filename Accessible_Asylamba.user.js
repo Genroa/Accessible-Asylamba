@@ -21,10 +21,24 @@ function addCss(newCss)
 	$('#custom-css').append(newCss);
 }
 
+function createShortcuts()
+{
+	$(document).keyup(function(e) {
+	    if(e.keyCode==77 && e.ctrlKey) //m
+	    {
+	    	$('.aa-game-menu:first-child').focus();
+	    }
+	});
+}
 
 function modifyMenu()
 {
+	var b3Content = $('.left-3').html();
+	$('.left-2').html($('.left-2').html()+b3Content);
+	$('.left-3').first().remove();
+
 	$.each($('.left-2 > a'), function(){
+		$(this).addClass('aa-game-menu');
 		$(this).html($(this).attr("title") + $(this).html());
 		$(this).find('img').hide();
 		$(this).on("click", function(){
@@ -32,14 +46,6 @@ function modifyMenu()
 		})
 	});
 	
-	$.each($('.left-3 > a'), function(){
-		$(this).html($(this).attr("title") + $(this).html());
-		$(this).find('img').hide();
-		$(this).on("click", function(){
-			$(this).find('img').click();
-		})
-	});
-
 	var notif = "0";
 	if($('#general-notif-container > .number').length)
 		notif = $('#general-notif-container > .number').html();
@@ -47,15 +53,26 @@ function modifyMenu()
 	$('#general-notif-container').html(notif+" notifications");
 
 
-	$('div.box:nth-child(4) > a:nth-child(1)').html("Bugtracker");
-	$('div.box:nth-child(4) > a:nth-child(2)').html("Paramètres");
-	$('div.box:nth-child(4) > a:nth-child(3)').html("Menu principal");
 
-	addCss('#nav .box a.square:focus{ background: red;}');
+	$('.aa-game-menu:last-child').on("focusout", function(){
+		$('.aa-game-menu').first().focus();
+	});
+
+	
+
+
+	// $('div.box:nth-child(4) > a:nth-child(1)').html("Bugtracker");
+	// $('div.box:nth-child(4) > a:nth-child(2)').html("Paramètres");
+	// $('div.box:nth-child(4) > a:nth-child(3)').html("Menu principal");
+
+	//Debug display
+	//addCss('#nav .box a.square:focus{ background: red;}');
 }
 
 
 
 $(function(){
 	modifyMenu();
+
+	createShortcuts();
 });
